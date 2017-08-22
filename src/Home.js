@@ -8,7 +8,7 @@ class Home extends Component {
       <div className="Home">
         <div className="Home-header">
           <img src={logo} className="Home-logo" alt="logo" />
-          <h2>Welcome to Razzle</h2>
+          <h2>Welcome to Oyster</h2>
         </div>
         <p className="Home-intro">
           To get started, edit
@@ -22,7 +22,6 @@ class Home extends Component {
           and save to reload.
         </p>
         <ul className="Home-resources">
-          <li><a href="https://github.com/jaredpalmer/razzle">Docs</a></li>
           <li>
             <a href="https://github.com/jaredpalmer/razzle/issues">Issues</a>
           </li>
