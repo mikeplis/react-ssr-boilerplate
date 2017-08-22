@@ -6,7 +6,7 @@ import './App.css';
 
 const App = () =>
   <Switch>
-    <Route exact path="/" component={Home} />
+    <Route exact path="/about" component={Home} />
   </Switch>;
 
 export default App;
