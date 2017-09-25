@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
-import Hello from './components/Hello';
+import Hello from './components/Hello'; // eslint-disable-line import/no-named-as-default
 import Foo from './components/Foo';
 import './App.css';
 

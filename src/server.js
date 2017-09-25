@@ -1,16 +1,17 @@
-import { StaticRouter, matchPath } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 import { ApolloClient, createNetworkInterface, ApolloProvider, getDataFromTree } from 'react-apollo';
 
-import App from './App';
 import React from 'react';
 import express from 'express';
-import path from 'path';
+// import path from 'path';
 import { renderToString } from 'react-dom/server';
 // TODO: probably don't need both request and isomorphic-fetch
 import request from 'request';
+// eslint-disable-next-line no-unused-vars
 import fetch from 'isomorphic-fetch'; // used by react-apollo
+import App from './App';
 
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
+const assets = require(process.env.RAZZLE_ASSETS_MANIFEST); // eslint-disable-line import/no-dynamic-require
 
 const reactRender = (req, res) => {
     const client = new ApolloClient({
@@ -72,11 +73,11 @@ server
     .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
     .get(reactRoutes, reactRender)
     .get('/webpack/*', (req, res) => {
-        const newUrl = 'http://localhost:8082' + req.url;
+        const newUrl = `http://localhost:8082${req.url}`;
         request(newUrl).pipe(res);
     })
     .get('/*', (req, res) => {
-        const newUrl = 'http://localhost:8080' + req.url;
+        const newUrl = `http://localhost:8080${req.url}`;
         request(newUrl).pipe(res);
     });
 

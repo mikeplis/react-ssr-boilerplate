@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './react.svg';
 import './Home.css';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class Home extends Component {
     render() {
         return (

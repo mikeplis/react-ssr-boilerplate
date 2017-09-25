@@ -7,7 +7,8 @@
     "build": "razzle build",
     "test": "razzle test --env=jsdom",
     "start:prod": "NODE_ENV=production node build/server.js",
-    "format": "prettier --write \"./src/**/*.js\""
+    "format": "prettier --write \"./src/**/*.js\"",
+    "lint": "eslint \"./src/**/*.js\""
   },
   "dependencies": {
     "express": "4.15.4",

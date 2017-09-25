@@ -1,7 +1,8 @@
 module.exports = {
     extends: 'airbnb',
     env: {
-        jest: true
+        jest: true,
+        browser: true
     },
     rules: {
         indent: ['error', 4],
@@ -13,6 +14,7 @@ module.exports = {
         'react/require-default-props': 'warn',
         'react/forbid-prop-types': 'warn',
         'react/prefer-stateless-function': 'warn',
+        'import/no-named-as-default': 'warn',
 
         // Quieting a couple of rules that I don't think need to be errors
         'comma-dangle': 'off',

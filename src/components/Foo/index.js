@@ -3,6 +3,7 @@ import { graphql, gql } from 'react-apollo';
 
 import TestNav from '../TestNav';
 
+// eslint-disable-next-line react/prop-types
 const Foo = ({ data }) => {
     const { loading, foo } = data;
     return (
