@@ -2,6 +2,7 @@ import React from 'react';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 import { Hello } from '../index';
+
 const shallowRenderer = createRenderer();
 
 describe('<Hello />', () => {
