@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Hello /> renders data 1`] = `
+<div>
+  <Unknown />
+  <h1>
+    Hello World!
+  </h1>
+</div>
+`;
+
+exports[`<Hello /> renders loading 1`] = `
+<div>
+  <Unknown />
+  <div>
+    Loading...
+  </div>
+</div>
+`;

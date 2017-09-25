@@ -3,7 +3,7 @@ import { graphql, gql } from 'react-apollo';
 
 import TestNav from '../TestNav';
 
-const Hello = ({ data }) => {
+export const Hello = ({ data }) => {
     const { loading, hello } = data;
     return (
         <div>

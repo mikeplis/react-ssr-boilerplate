@@ -16,6 +16,10 @@
     "react-apollo": "^1.4.15",
     "react-dom": "15.6.1",
     "react-router-dom": "4.1.2",
+    "react-test-renderer": "^15.6.1",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "jest": "^21.1.0"
   }
 }
