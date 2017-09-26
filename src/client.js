@@ -2,7 +2,12 @@ import BrowserRouter from 'react-router-dom/BrowserRouter';
 import React from 'react';
 import { render } from 'react-dom';
 import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
+import { hydrate } from 'emotion';
 import App from './App';
+
+if (typeof window !== 'undefined') {
+    hydrate(window.__EMOTION_DATA__); // eslint-disable-line no-underscore-dangle
+}
 
 const createClient = () => {
     return new ApolloClient({

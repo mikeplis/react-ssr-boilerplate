@@ -9,6 +9,7 @@ import { renderToString } from 'react-dom/server';
 import request from 'request';
 // eslint-disable-next-line no-unused-vars
 import fetch from 'isomorphic-fetch'; // used by react-apollo
+import { extractCritical } from 'emotion-server';
 import App from './App';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST); // eslint-disable-line import/no-dynamic-require
@@ -41,21 +42,24 @@ const reactRender = (req, res) => {
             const initialState = { apollo: client.getInitialState() };
             // const initialState = client.store.getState();
 
+            const { ids, css } = extractCritical(content);
+
             res.status(200).send(
                 `<!doctype html>
                     <html lang="">
                     <head>
                         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                         <meta charSet='utf-8' />
-                        <title>Welcome to Razzle</title>
                         <meta name="viewport" content="width=device-width, initial-scale=1">
                         ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''}
                         <script src="${assets.client.js}" defer></script>
+                        <style>${css}</style>
                     </head>
                     <body>
                         <div id="root">${content}</div>
                         <script>
                             window.__APOLLO_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
+                            window.__EMOTION_DATA__ = ${JSON.stringify(ids)}
                         </script>
                     </body>
                 </html>`
@@ -65,7 +69,7 @@ const reactRender = (req, res) => {
 };
 
 // These routes also need to be handled on the client side in App.js
-const reactRoutes = ['/test', '/hello', '/foo'];
+const reactRoutes = ['/hello', '/foo'];
 
 const server = express();
 server
