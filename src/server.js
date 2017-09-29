@@ -14,6 +14,11 @@ import App from './App';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST); // eslint-disable-line import/no-dynamic-require
 
+const i18nextMiddleware = require('i18next-express-middleware'); // has no proper import yet
+import Backend from 'i18next-node-fs-backend';
+import i18n from './i18n';
+import { I18nextProvider } from 'react-i18next';
+
 const reactRender = (req, res) => {
     const client = new ApolloClient({
         ssrMode: true,
@@ -26,9 +31,11 @@ const reactRender = (req, res) => {
 
     const app = (
         <ApolloProvider client={client}>
-            <StaticRouter location={req.url} context={context}>
-                <App />
-            </StaticRouter>
+            <I18nextProvider i18n={req.i18n}>
+                <StaticRouter location={req.url} context={context}>
+                    <App />
+                </StaticRouter>
+            </I18nextProvider>
         </ApolloProvider>
     );
 
@@ -36,6 +43,12 @@ const reactRender = (req, res) => {
         res.redirect(context.url);
     } else {
         getDataFromTree(app).then(() => {
+            const initialI18nStore = {};
+            req.i18n.languages.forEach(l => {
+                initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
+            });
+            const initialLanguage = req.i18n.language;
+
             const content = renderToString(app);
 
             // NOTE: NOT sure what the difference is between client.store.getState() and client.getInitialState()
@@ -60,6 +73,8 @@ const reactRender = (req, res) => {
                         <script>
                             window.__APOLLO_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
                             window.__EMOTION_DATA__ = ${JSON.stringify(ids)}
+                            window.initialI18nStore = JSON.parse('${JSON.stringify(initialI18nStore)}');
+                            window.initialLanguage = '${initialLanguage}';
                         </script>
                     </body>
                 </html>`
@@ -72,17 +87,34 @@ const reactRender = (req, res) => {
 const reactRoutes = ['/hello', '/foo'];
 
 const server = express();
-server
-    .disable('x-powered-by')
-    .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-    .get(reactRoutes, reactRender)
-    .get('/webpack/*', (req, res) => {
-        const newUrl = `http://localhost:8082${req.url}`;
-        request(newUrl).pipe(res);
-    })
-    .get('/*', (req, res) => {
-        const newUrl = `http://localhost:8080${req.url}`;
-        request(newUrl).pipe(res);
-    });
+
+i18n
+    .use(Backend)
+    .use(i18nextMiddleware.LanguageDetector)
+    .init(
+        {
+            preload: ['en', 'de'],
+            backend: {
+                loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json',
+                addPath: __dirname + '/locales/{{lng}}/{{ns}}.missing.json'
+            }
+        },
+        () => {
+            server
+                .disable('x-powered-by')
+                .use(i18nextMiddleware.handle(i18n))
+                .use('/locales', express.static(__dirname + '/locales'))
+                .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+                .get(reactRoutes, reactRender)
+                .get('/webpack/*', (req, res) => {
+                    const newUrl = `http://localhost:8082${req.url}`;
+                    request(newUrl).pipe(res);
+                })
+                .get('/*', (req, res) => {
+                    const newUrl = `http://localhost:8080${req.url}`;
+                    request(newUrl).pipe(res);
+                });
+        }
+    );
 
 export default server;

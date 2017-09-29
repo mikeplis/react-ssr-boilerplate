@@ -3,9 +3,19 @@
 exports[`<Hello /> renders data 1`] = `
 <div>
   <Unknown />
-  <h1>
+  <h1
+    className="css-1gao8uk"
+  >
     Hello World!
   </h1>
+  <styled(Component)>
+    <Trans
+      parent="div"
+    >
+      This is some text
+    </Trans>
+  </styled(Component)>
+  <h2 />
 </div>
 `;
 
@@ -15,5 +25,13 @@ exports[`<Hello /> renders loading 1`] = `
   <div>
     Loading...
   </div>
+  <styled(Component)>
+    <Trans
+      parent="div"
+    >
+      This is some text
+    </Trans>
+  </styled(Component)>
+  <h2 />
 </div>
 `;
