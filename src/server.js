@@ -23,7 +23,7 @@ const reactRender = (req, res) => {
     const client = new ApolloClient({
         ssrMode: true,
         networkInterface: createNetworkInterface({
-            uri: 'https://v7qlnqrn3.lp.gql.zone/graphql'
+            uri: 'https://7kzlnxkjj.lp.gql.zone/graphql'
         })
     });
 
@@ -84,7 +84,7 @@ const reactRender = (req, res) => {
 };
 
 // These routes also need to be handled on the client side in App.js
-const reactRoutes = ['/hello', '/foo'];
+const reactRoutes = ['/hello', '/foo', '/stories', '/stories/:id'];
 
 const server = express();
 
@@ -106,14 +106,14 @@ i18n
                 .use('/locales', express.static(__dirname + '/locales'))
                 .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
                 .get(reactRoutes, reactRender)
-                .get('/webpack/*', (req, res) => {
-                    const newUrl = `http://localhost:8082${req.url}`;
-                    request(newUrl).pipe(res);
-                })
-                .get('/*', (req, res) => {
-                    const newUrl = `http://localhost:8080${req.url}`;
-                    request(newUrl).pipe(res);
-                });
+                // .get('/webpack/*', (req, res) => {
+                //     const newUrl = `http://localhost:8082${req.url}`;
+                //     request(newUrl).pipe(res);
+                // })
+                // .get('/*', (req, res) => {
+                //     const newUrl = `http://localhost:8080${req.url}`;
+                //     request(newUrl).pipe(res);
+                // });
         }
     );
 

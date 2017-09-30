@@ -16,7 +16,7 @@ const createClient = () => {
     return new ApolloClient({
         initialState: window.__APOLLO_STATE__, // eslint-disable-line no-underscore-dangle
         networkInterface: createNetworkInterface({
-            uri: 'https://v7qlnqrn3.lp.gql.zone/graphql'
+            uri: 'https://7kzlnxkjj.lp.gql.zone/graphql'
         })
     });
 };
