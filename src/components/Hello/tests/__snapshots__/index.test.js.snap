@@ -2,7 +2,6 @@
 
 exports[`<Hello /> renders data 1`] = `
 <div>
-  <Unknown />
   <h1
     className="css-1gao8uk"
   >
@@ -12,7 +11,7 @@ exports[`<Hello /> renders data 1`] = `
     <Trans
       parent="div"
     >
-      This is some text
+      This is a missing translation
     </Trans>
   </styled(Component)>
   <h2 />
@@ -21,7 +20,6 @@ exports[`<Hello /> renders data 1`] = `
 
 exports[`<Hello /> renders loading 1`] = `
 <div>
-  <Unknown />
   <div>
     Loading...
   </div>
@@ -29,7 +27,7 @@ exports[`<Hello /> renders loading 1`] = `
     <Trans
       parent="div"
     >
-      This is some text
+      This is a missing translation
     </Trans>
   </styled(Component)>
   <h2 />

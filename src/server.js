@@ -84,7 +84,7 @@ const reactRender = (req, res) => {
 };
 
 // These routes also need to be handled on the client side in App.js
-const reactRoutes = ['/hello', '/foo', '/stories', '/stories/:id'];
+const reactRoutes = ['/hello', '/stories', '/stories/:id'];
 
 const server = express();
 
