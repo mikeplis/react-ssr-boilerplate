@@ -8,7 +8,9 @@
     "test": "razzle test --env=jsdom",
     "start:prod": "NODE_ENV=production node build/server.js",
     "format": "prettier --write \"./src/**/*.js\"",
-    "lint": "eslint \"./src/**/*.js\""
+    "lint": "eslint \"./src/**/*.js\"",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "babel-plugin-emotion": "^7.3.2",
@@ -38,6 +40,9 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.1.0",
-    "prettier": "^1.7.0"
+    "prettier": "^1.7.0",
+    "@storybook/react": "^3.2.12",
+    "@storybook/addon-actions": "^3.2.12",
+    "@storybook/addon-links": "^3.2.12"
   }
 }
