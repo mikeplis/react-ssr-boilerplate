@@ -1,18 +1,15 @@
-import React from 'react';
-import { createRenderer } from 'react-test-renderer/shallow';
+/**
+ * You could have a single storyshots.test.js file at the root of the project and call initStoryshots once
+ * to initialize all of your storyshot tests, but then all of the generated snapshots would be in that single folder.
+ * Also, initializing storyshot tests for each component gives you the flexibility to configure them differently
+ * for different components (e.g. if one uses shallow rendering but another doesn't)
+ */
+import initStoryshots, { shallowSnapshot } from '@storybook/addon-storyshots';
 
-import { Hello } from '../index';
-
-const shallowRenderer = createRenderer();
-
-describe('<Hello />', () => {
-    it('renders loading', () => {
-        const result = shallowRenderer.render(<Hello data={{ loading: true }} t={() => {}} />);
-        expect(result).toMatchSnapshot();
-    });
-
-    it('renders data', () => {
-        const result = shallowRenderer.render(<Hello data={{ hello: 'Hello World!' }} t={() => {}} />);
-        expect(result).toMatchSnapshot();
-    });
+// initStoryshots({
+//     test: shallowSnapshot,
+//     storyKindRegex: /^Hello$/
+// });
+initStoryshots({
+    storyKindRegex: /^Hello$/
 });
