@@ -2,32 +2,29 @@ import React from 'react';
 import { graphql, gql, compose } from 'react-apollo';
 import { css } from 'emotion';
 import styled from 'react-emotion';
-import { translate, Trans, I18n } from 'react-i18next';
+import { Trans, I18n } from 'react-i18next';
 
 const testStyle = css`color: red;`; // this is a class name
-const Paragraph = styled.div`color: green;`; // this is a component
-const UnusedParagraph = styled.div`color: blue;`; // these styles won't be included in critical styles
+const Green = styled.span`color: green;`; // this is a component
+const Red = styled.div`color: red;`; // this is a component
+const UnusedBlue = styled.div`color: blue;`; // these styles won't be included in critical styles
 
-// export const Hello = props => {
-//     const { data, t } = props; // eslint-disable-line react/prop-types
-//     const { loading, hello } = data;
-//     return (
-//         <div>
-//             {loading ? <div>Loading...</div> : <h1 className={testStyle}>{hello}</h1>}
-//             <Paragraph>
-//                 <Trans t={t}>This is a missing translation</Trans>
-//             </Paragraph>
-//             {false && <UnusedParagraph>This is hidden</UnusedParagraph>}
-//             <h2>{t('Welcome to Razzle')}</h2>
-//         </div>
-//     );
-// };
-export const Hello = () => {
+export const Hello = props => {
+    const { data } = props; // eslint-disable-line react/prop-types
+    const { loading, hello } = data;
     return (
-        <div>
-            {/* <Trans>This is a translation</Trans> */}
-            <I18n>{t => <Trans>This is a translation</Trans>}</I18n>
-        </div>
+        <I18n>
+            {t => (
+                <div>
+                    {loading ? <div>Loading...</div> : <h1 className={testStyle}>{hello}</h1>}
+                    <Trans>
+                        This <Green>is a</Green> <Red>missing translation</Red>
+                    </Trans>
+                    {false && <UnusedBlue>This is hidden</UnusedBlue>}
+                    <h2>{t('Welcome to Razzle')}</h2>
+                </div>
+            )}
+        </I18n>
     );
 };
 
@@ -37,6 +34,4 @@ const query = gql`
     }
 `;
 
-// export default graphql(query)(Hello);
-// export default compose(graphql(query), translate('translations', { wait: process && !process.release }))(Hello);
 export default compose(graphql(query))(Hello);

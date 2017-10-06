@@ -5,13 +5,20 @@ exports[`Storyshots Hello test 1`] = `
   <div>
     Loading...
   </div>
-  <styled(Component)>
-    <Trans
-      parent="div"
+  <div>
+    This 
+    <span
+      className="css-Green-4om2sn0 css-45352"
     >
-      This is a missing translation
-    </Trans>
-  </styled(Component)>
+      is a
+    </span>
+     
+    <div
+      className="css-Red-4om2sn1 css-1gao8uk"
+    >
+      missing translation
+    </div>
+  </div>
   <h2>
     Welcome to Razzle
   </h2>

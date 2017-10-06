@@ -14,7 +14,7 @@ const options = {
 
     keySeparator: '##### not used #####', // as we use full text keys in this sample
     saveMissing: true,
-    debug: true,
+    // debug: true,
 
     // cache: {
     //   enabled: true
