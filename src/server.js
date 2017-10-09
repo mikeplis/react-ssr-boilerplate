@@ -3,10 +3,7 @@ import { ApolloClient, createNetworkInterface, ApolloProvider, getDataFromTree }
 
 import React from 'react';
 import express from 'express';
-// import path from 'path';
 import { renderToString } from 'react-dom/server';
-// TODO: probably don't need both request and isomorphic-fetch
-import request from 'request';
 // eslint-disable-next-line no-unused-vars
 import fetch from 'isomorphic-fetch'; // used by react-apollo
 import { extractCritical } from 'emotion-server';
@@ -83,9 +80,6 @@ const reactRender = (req, res) => {
     }
 };
 
-// These routes also need to be handled on the client side in App.js
-const reactRoutes = ['/hello', '/stories', '/stories/:id'];
-
 const server = express();
 
 i18n
@@ -105,15 +99,7 @@ i18n
                 .use(i18nextMiddleware.handle(i18n))
                 .use('/locales', express.static(__dirname + '/locales'))
                 .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-                .get(reactRoutes, reactRender)
-                // .get('/webpack/*', (req, res) => {
-                //     const newUrl = `http://localhost:8082${req.url}`;
-                //     request(newUrl).pipe(res);
-                // })
-                // .get('/*', (req, res) => {
-                //     const newUrl = `http://localhost:8080${req.url}`;
-                //     request(newUrl).pipe(res);
-                // });
+                .get('*', reactRender);
         }
     );
 
