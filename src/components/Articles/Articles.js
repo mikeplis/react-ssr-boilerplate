@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, gql } from 'react-apollo';
 import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const ArticleTitle = styled.h2`
     text-transform: capitalize;
@@ -21,7 +22,7 @@ const ArticleImage = styled.img`
 export const Articles = props => {
     const { data: { loading, articles } } = props; // eslint-disable-line react/prop-types
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
     return (
         <div>
