@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, gql } from 'react-apollo';
 import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
+import { I18n } from 'react-i18next';
 import Loading from '../Loading/Loading';
 
 const ArticleTitle = styled.h2`
@@ -20,25 +21,31 @@ const ArticleImage = styled.img`
 `;
 
 export const Articles = props => {
-    const { data: { loading, articles } } = props; // eslint-disable-line react/prop-types
-    if (loading) {
-        return <Loading />;
-    }
     return (
-        <div>
-            <h1>Articles</h1>
-            {articles.map(article => (
-                <div key={article.id}>
-                    <Link to={`/${article.id}`}>
-                        <ArticleTitle>{article.title}</ArticleTitle>
-                    </Link>
-                    <ArticleDetails>
-                        <ArticleImage src={article.imageUrl} alt={article.title} />
-                        <Deck>{article.deck}</Deck>
-                    </ArticleDetails>
-                </div>
-            ))}
-        </div>
+        <I18n>
+            {t => {
+                const { data: { loading, articles } } = props; // eslint-disable-line react/prop-types
+                if (loading) {
+                    return <Loading />;
+                }
+                return (
+                    <div>
+                        <h1>{t('Articles')}</h1>
+                        {articles.map(article => (
+                            <div key={article.id}>
+                                <Link to={`/${article.id}`}>
+                                    <ArticleTitle>{article.title}</ArticleTitle>
+                                </Link>
+                                <ArticleDetails>
+                                    <ArticleImage src={article.imageUrl} alt={article.title} />
+                                    <Deck>{article.deck}</Deck>
+                                </ArticleDetails>
+                            </div>
+                        ))}
+                    </div>
+                );
+            }}
+        </I18n>
     );
 };
 
